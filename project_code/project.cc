@@ -6,6 +6,39 @@
 
 matrix arr;
 
+//Use this function in getValue() function
+int parseLine(char *line) {
+	int i = strlen(line);
+
+	while (*line < '0' || *line > '9')
+		line++;
+
+	line[i - 3] = '\0';
+	i = atoi(line);
+	return i;
+}
+
+/*
+* To get virtual memory in process
+* using parseline function to get memory size
+*/
+int getValue() {
+	ifstream file("/proc/self/status");
+	int result = -1;
+	char line[128];
+
+	while (file.getline(line, 128) != NULL) {
+		if (strncmp(line, "VmSize:", 6) == 0) {
+			cout << line << endl;
+			result = parseLine(line);
+			break;
+		}
+	}
+
+	file.close();
+	return result;
+}
+
 /*
 * Get File name Function
 * using substr so get name in path
@@ -119,6 +152,8 @@ void Local_Align(char *d, char *q, const char *o) {
 		}
 	}
 	
+	getValue();
+
 	vector<char> local_db;
 	vector<char> local_query;	
 	
