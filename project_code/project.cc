@@ -143,6 +143,7 @@ void Local_Align(char *d, char *q, const char *o) {
 	for (i = 1; i < query.size(); i++) {
 		for (j = 1; j < db.size(); j++) {
 			if (query.at(i) == db.at(j))
+				//Using bool variable to check match or mismatch
 				same = true;
 
 			//Find max value in arr[i][j] to use Max function.
@@ -157,9 +158,7 @@ void Local_Align(char *d, char *q, const char *o) {
 				best_y_loc = i;
 			}
 		}
-	}
-	
-	//Get memory size.
+	}	//Get memory size.
 	getValue();
 
 	vector<char> local_db;
