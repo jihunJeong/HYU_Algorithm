@@ -70,19 +70,24 @@ matrix Make_Matrix(int x_size, int y_size) {
 int Max(int y, int x, bool same) {
 	int max_score = 0;
 
+	//Query Gap
 	max_score = max(max_score, arr[y][x - 1] + gap);
+	
+	//DB Gap
 	max_score = max(max_score, arr[y - 1][x] + gap);
 
 	if (same) 
+		//Match 
 		max_score = max(max_score, arr[y - 1][x - 1] + match);
 	else 
+		//Mismatch
 		max_score = max(max_score, arr[y - 1][x - 1] + mismatch);
 
 	return max_score;
 }
 
 /*
-* implement Local Alignmet Algorithm
+* Implement Local Alignmet Algorithm
 * Using matrix so find max value in alignment
 * In this function we get max value that means best sequence
 */
@@ -140,11 +145,13 @@ void Local_Align(char *d, char *q, const char *o) {
 			if (query.at(i) == db.at(j))
 				same = true;
 
+			//Find max value in arr[i][j] to use Max function.
 			arr[i][j] = Max(i, j, same);
 			
 			same = false;
 
 			if (arr[i][j] >= best_score) {
+				// Store best score  and location.
 				best_score = arr[i][j];
 				best_x_loc = j;
 				best_y_loc = i;
@@ -152,6 +159,7 @@ void Local_Align(char *d, char *q, const char *o) {
 		}
 	}
 	
+	//Get memory size.
 	getValue();
 
 	vector<char> local_db;
